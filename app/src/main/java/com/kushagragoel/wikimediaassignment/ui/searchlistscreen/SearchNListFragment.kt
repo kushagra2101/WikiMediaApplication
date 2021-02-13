@@ -19,7 +19,6 @@ import com.kushagragoel.wikimediaassignment.database.SearchDatabase
 import com.kushagragoel.wikimediaassignment.helper.ModuleConstants
 import com.kushagragoel.wikimediaassignment.network.model.Page
 import com.kushagragoel.wikimediaassignment.ui.listdetail.WikimediaApiRecyclerViewAdapter
-import kotlinx.android.synthetic.main.search_n_list_fragment.*
 
 class SearchNListFragment : Fragment() {
 
@@ -64,7 +63,7 @@ class SearchNListFragment : Fragment() {
         })
 
         viewModel.isApiInProgress.observe(viewLifecycleOwner, Observer {
-            progressBar?.visibility = if (it == true) View.VISIBLE else View.GONE
+            progressBar.visibility = if (it == true) View.VISIBLE else View.GONE
         })
 
         viewModel.dataInsertionSuccess.observe(viewLifecycleOwner, Observer {
@@ -115,7 +114,6 @@ class SearchNListFragment : Fragment() {
                     else {
                         Toast.makeText(requireContext(), getString(R.string.no_network_connection), Toast.LENGTH_SHORT).show()
                     }
-//                    return true
                 }
                 return false
             }

@@ -9,7 +9,7 @@ import android.webkit.*
 import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.fragment.app.Fragment
-import com.kushagragoel.wikimediaassignment.R
+import com.kushagragoel.wikimediaassignment.databinding.SearchDetailFragmentBinding
 import com.kushagragoel.wikimediaassignment.helper.ModuleConstants
 import java.lang.ref.WeakReference
 
@@ -19,34 +19,36 @@ class SearchDetailFragment : Fragment() {
         fun newInstance() = SearchDetailFragment()
     }
 
-    private lateinit var viewModel: SearchDetailViewModel
-
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.search_detail_fragment, container, false)
+        val binding = SearchDetailFragmentBinding.inflate(inflater)
+        binding.webView.webChromeClient = WebChromeClient()
+        binding.webView.webViewClient = AppWebViewClients(binding.searchDetailProgress,
+            binding.webView, binding.failureMessageTextView)
+        val url: String? = requireArguments().getString(ModuleConstants.WIKI_URL_BUNDLE_KEY_NAME)
+        if (url.isNullOrEmpty()) {
+            binding.webView.visibility = View.GONE
+            binding.failureMessageTextView.visibility = View.VISIBLE
+        } else {
+            if (ModuleConstants.checkNetworkConnectivity(requireContext())) {
+                binding.failureMessageTextView.visibility = View.GONE
+                binding.webView.visibility = View.VISIBLE
+                binding.webView.loadUrl(url)
+            } else {
+                binding.webView.visibility = View.GONE
+                binding.failureMessageTextView.visibility = View.VISIBLE
+            }
+        }
+        return binding.root
     }
 
-    /*override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(SearchDetailViewModel::class.java)
-    }*/
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        val progressBar = view.findViewById<ProgressBar>(R.id.searchDetailProgress)
-        val webView = view.findViewById<WebView>(R.id.webView)
-        val textView = view.findViewById<TextView>(R.id.failureMessageTextView)
-        webView.webViewClient = AppWebViewClients(progressBar, webView, textView)
-        webView.webChromeClient = WebChromeClient()
-        requireArguments().getString(ModuleConstants.WIKI_URL_BUNDLE_KEY_NAME)?.let { webView.loadUrl(it) }
-    }
-
-    class AppWebViewClients(progressBar: ProgressBar?, webView: WebView, textView: TextView) : WebViewClient() {
+    inner class AppWebViewClients(progressBar: ProgressBar?, webView: WebView, textView: TextView) : WebViewClient() {
         var progressBar: WeakReference<ProgressBar?> = WeakReference(progressBar)
         var webView: WeakReference<WebView> = WeakReference(webView)
         var textView: WeakReference<TextView> = WeakReference(textView)
+
         override fun shouldOverrideUrlLoading(view: WebView, url: String): Boolean {
             webView.get()!!.visibility = View.VISIBLE
             textView.get()!!.visibility = View.GONE
@@ -64,7 +66,8 @@ class SearchDetailFragment : Fragment() {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 webView.get()!!.visibility = View.GONE
             }
-            if (progressBar.get() != null) progressBar.get()!!.visibility = View.GONE
+            if (progressBar.get() != null)
+                progressBar.get()!!.visibility = View.GONE
             webView.get()!!.visibility = View.GONE
             textView.get()!!.visibility = View.VISIBLE
         }

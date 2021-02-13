@@ -14,7 +14,7 @@ data class Page(
     val pagelanguagedir: String,
     val pagelanguagehtmlcode: String,
     val terms: Terms,
-    val thumbnail: Thumbnail,
+    val thumbnail: Thumbnail?,
     val title: String?,
     val touched: String
 )

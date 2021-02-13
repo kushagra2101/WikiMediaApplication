@@ -1,9 +1,10 @@
-package com.kushagragoel.wikimediaassignment
+package com.kushagragoel.wikimediaassignment.ui
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
+import com.kushagragoel.wikimediaassignment.R
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
