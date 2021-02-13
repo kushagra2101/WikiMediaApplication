@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">WikiMediaAssignment</string>
+    <string name="search">Search and Submit to begin</string>
+    <string name="search_image_description">Search Item Image</string>
+    <string name="welcomeString">Got something in your mind, you wanna know about!!</string>
+    <string name="text_recent">Recent Search(s)</string>
+    <string name="home_start_search_text">START</string>
+    <string name="delete_history_text">Delete History</string>
+    <string name="no_clear_search_history">Looks like you haven\'t search anything in a while...</string>
+    <string name="cleared_message">All your data is gone forever.</string>
+    <string name="url_not_provided_by_api">Unable to go to the detail page.</string>
+    <string name="no_network_connection">You do not have a valid network connection. PLease connect to internet and try again.</string>
+</resources>

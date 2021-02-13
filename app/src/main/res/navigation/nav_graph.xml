@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/homeScreenFragment">
+
+    <fragment
+        android:id="@+id/homeScreenFragment"
+        android:name="com.kushagragoel.wikimediaassignment.ui.homepage.HomeScreenFragment"
+        android:label="home_screen_fragment"
+        tools:layout="@layout/home_screen_fragment" >
+        <action
+            android:id="@+id/action_homeScreenFragment_to_searchNListFragment"
+            app:destination="@id/searchNListFragment"
+            app:popUpTo="@id/homeScreenFragment" />
+        <action
+            android:id="@+id/action_homeScreenFragment_to_searchDetailFragment"
+            app:destination="@id/searchDetailFragment"
+            app:popUpTo="@id/homeScreenFragment" />
+        <argument
+            android:name="click_Item_Web_Url"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/searchDetailFragment"
+        android:name="com.kushagragoel.wikimediaassignment.ui.listdetail.SearchDetailFragment"
+        android:label="search_detail_fragment"
+        tools:layout="@layout/search_detail_fragment" >
+        <argument
+            android:name="click_Item_Web_Url"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/searchNListFragment"
+        android:name="com.kushagragoel.wikimediaassignment.ui.searchlistscreen.SearchNListFragment"
+        android:label="search_n_list_fragment"
+        tools:layout="@layout/search_n_list_fragment" >
+        <action
+            android:id="@+id/action_searchNListFragment_to_searchDetailFragment"
+            app:destination="@id/searchDetailFragment"
+            app:popUpTo="@id/searchNListFragment" />
+    </fragment>
+</navigation>
